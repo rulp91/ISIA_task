@@ -30,6 +30,10 @@ public class Matriz {
         this(d.height, d.width, inicializarAleatorio);
     }
 
+    public Matriz(int filas, int columnas) {
+        this(filas, columnas, false);
+    }
+
     public Dimension getDimension() {
         return new Dimension(datos.length, datos[0].length);
     }
@@ -49,7 +53,8 @@ public class Matriz {
         return matrizResultante;
     }
 
-    public static Matriz multiplicarDosMatrices(Matriz a, Matriz b) throws DimensionesIncompatibles{
+
+    public static Matriz multiplicarDosMatrices(Matriz a, Matriz b) throws DimensionesIncompatibles {
 
         int filasA = a.getDimension().height;
         int filasB = b.getDimension().height;
@@ -64,6 +69,18 @@ public class Matriz {
             for (int j = 0; j < filasB; j++)
                 for (int k = 0; k < filasA; k++)
                     matrizResultante.datos[i][j] += a.datos[i][k] * b.datos[k][j];
+        return matrizResultante;
+    }
+
+    public static Matriz invertirMatriz(Matriz origen) {
+
+        int filasA = origen.getDimension().height;
+        int columnasA = origen.getDimension().width;
+        Matriz matrizResultante = new Matriz(columnasA, filasA);
+
+        for (int i = 0; i < columnasA; i++)
+            for (int j = 0; j < filasA; j++)
+                matrizResultante.datos[j][i] = origen.datos[i][j];
 
         return matrizResultante;
     }

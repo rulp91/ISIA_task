@@ -19,6 +19,8 @@ public class Driver {
         } catch (DimensionesIncompatibles ex) {
             Logger.getLogger(Driver.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println("====================Calcular la traspuesta de una matriz======================");
+        System.out.println(Matriz.invertirMatriz(m1));
     }
     
 }
