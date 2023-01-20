@@ -14,13 +14,13 @@ import java.util.Random;
  * @author galvez
  */
 public class Matriz {
-    private int[][]datos;
-    private Random rnd = new Random();
-    
+    private final int[][]datos;
+
     public Matriz(int filas, int columnas, boolean inicializarAleatorio){
         datos = new int[columnas][];
         for(int i=0; i<columnas; i++){
             datos[i] = new int[filas];
+            Random rnd = new Random();
             if (inicializarAleatorio)
                 for(int j=0; j<filas; j++)
                     datos[i][j] = rnd.nextInt(100);
@@ -50,19 +50,19 @@ public class Matriz {
 
     @Override
     public String toString(){
-        String ret = "";
-        ret += "[\n";
+        StringBuilder ret = new StringBuilder();
+        ret.append("[\n");
         for (int i = 0; i < getDimension().width; i++) {
-            ret += "(";
+            ret.append("(");
             for (int j = 0; j < getDimension().height; j++) {  
-                ret += String.format("%3d", datos[i][j]); 
-                if (j != getDimension().height - 1) ret += ", ";
+                ret.append(String.format("%3d", datos[i][j]));
+                if (j != getDimension().height - 1) ret.append(", ");
             } 
-            ret += ")";
-            if (i != getDimension().width - 1) ret += ",";
-            ret += "\n";
+            ret.append(")");
+            if (i != getDimension().width - 1) ret.append(",");
+            ret.append("\n");
         } 
-        ret += "]\n";
-        return ret;
+        ret.append("]\n");
+        return ret.toString();
     }
 }
