@@ -59,8 +59,8 @@ public class Matriz {
         int columnasA = origen.getDimension().width;
         Matriz matrizResultante = new Matriz(columnasA, filasA);
 
-        for (int i = 0; i < filasA; i++)
-            for (int j = 0; j < columnasA; j++)
+        for (int i = 0; i < columnasA; i++)
+            for (int j = 0; j < filasA; j++)
                 matrizResultante.datos[j][i] = origen.datos[i][j];
 
         return matrizResultante;
