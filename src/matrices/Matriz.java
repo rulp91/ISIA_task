@@ -13,13 +13,13 @@ import java.util.Random;
  * @author galvez
  */
 public class Matriz {
-    private int[][] datos;
-    private Random rnd = new Random();
+    private final int[][] datos;
 
     public Matriz(int filas, int columnas, boolean inicializarAleatorio) {
         datos = new int[columnas][];
         for (int i = 0; i < columnas; i++) {
             datos[i] = new int[filas];
+            Random rnd = new Random();
             if (inicializarAleatorio)
                 for (int j = 0; j < filas; j++)
                     datos[i][j] = rnd.nextInt(100);
@@ -49,14 +49,13 @@ public class Matriz {
         return matrizResultante;
     }
 
-    public static Matriz multiplicarDosMatrices(Matriz a, Matriz b) throws DimensionesIncompatibles {
+    public static Matriz multiplicarDosMatrices(Matriz a, Matriz b) throws DimensionesIncompatibles{
 
         int filasA = a.getDimension().height;
         int filasB = b.getDimension().height;
         int columnasA = a.getDimension().width;
-        int columnasB = b.getDimension().width;
 
-        if ((columnasA != filasB) || (columnasB != filasA))
+        if (columnasA != filasB)
             throw new DimensionesIncompatibles("Las dimensiones no son válidas para la mltiplicación");
 
         int dimension = Math.max(filasA, columnasA);
@@ -71,19 +70,19 @@ public class Matriz {
 
     @Override
     public String toString() {
-        String ret = "";
-        ret += "[\n";
+        StringBuilder ret = new StringBuilder();
+        ret.append("[\n");
         for (int i = 0; i < getDimension().width; i++) {
-            ret += "(";
+            ret.append("(");
             for (int j = 0; j < getDimension().height; j++) {
-                ret += String.format("%3d", datos[i][j]);
-                if (j != getDimension().height - 1) ret += ", ";
+                ret.append(String.format("%3d", datos[i][j]));
+                if (j != getDimension().height - 1) ret.append(", ");
             }
-            ret += ")";
-            if (i != getDimension().width - 1) ret += ",";
-            ret += "\n";
+            ret.append(")");
+            if (i != getDimension().width - 1) ret.append(",");
+            ret.append("\n");
         }
-        ret += "]\n";
-        return ret;
+        ret.append("]\n");
+        return ret.toString();
     }
 }
