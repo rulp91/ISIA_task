@@ -7,6 +7,8 @@
 package matrices;
 
 import java.awt.Dimension;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -32,6 +34,13 @@ public class Matriz {
 
     public Matriz(int filas, int columnas) {
         this(filas, columnas, false);
+    }
+
+    public Matriz(List<int[]> lista) {
+        this(lista.size(), lista.get(0).length);
+        for (int i = 0; i < lista.size(); i++) {
+            datos[i] = lista.get(i);
+        }
     }
 
     public Dimension getDimension() {
@@ -61,7 +70,7 @@ public class Matriz {
         int columnasA = a.getDimension().width;
 
         if (columnasA != filasB)
-            throw new DimensionesIncompatibles("Las dimensiones no son válidas para la mltiplicación");
+            throw new DimensionesIncompatibles("Las dimensiones no son válidas para la multiplicación");
 
         int dimension = Math.max(filasA, columnasA);
         Matriz matrizResultante = new Matriz(dimension, dimension, false);
@@ -101,5 +110,27 @@ public class Matriz {
         }
         ret.append("]\n");
         return ret.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Matriz matriz = (Matriz) o;
+        if (matriz.datos.length != datos.length || matriz.datos[0].length != datos[0].length) return false;
+
+        boolean equals = true;
+        for (int i = 0; i<datos.length; i++){
+            equals &= Arrays.equals(datos[i], matriz.datos[i]);
+            if(!equals)
+                return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(datos);
     }
 }
