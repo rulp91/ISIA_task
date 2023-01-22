@@ -36,8 +36,10 @@ public class Matriz {
         this(filas, columnas, false);
     }
 
-    public Matriz(List<int[]> lista) {
+    public Matriz(List<int[]> lista) throws DimensionesIncompatibles {
         this(lista.size(), lista.get(0).length);
+        if (lista.size()!=lista.get(0).length)
+            throw new DimensionesIncompatibles("Este tipo de constructor es solo para matrices cuadradas");
         for (int i = 0; i < lista.size(); i++) {
             datos[i] = lista.get(i);
         }
@@ -68,8 +70,9 @@ public class Matriz {
         int filasA = a.getDimension().height;
         int filasB = b.getDimension().height;
         int columnasA = a.getDimension().width;
+        int columnasB = b.getDimension().width;
 
-        if (columnasA != filasB)
+        if (columnasA != filasB || filasA != columnasB)
             throw new DimensionesIncompatibles("Las dimensiones no son válidas para la multiplicación");
 
         int dimension = Math.max(filasA, columnasA);
@@ -119,10 +122,8 @@ public class Matriz {
         Matriz matriz = (Matriz) o;
         if (matriz.datos.length != datos.length || matriz.datos[0].length != datos[0].length) return false;
 
-        boolean equals = true;
         for (int i = 0; i<datos.length; i++){
-            equals &= Arrays.equals(datos[i], matriz.datos[i]);
-            if(!equals)
+            if(!Arrays.equals(datos[i], matriz.datos[i]))
                 return false;
         }
 

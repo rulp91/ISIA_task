@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MatrizTest {
 
@@ -35,18 +34,20 @@ class MatrizTest {
 
     @org.junit.jupiter.api.Test
     void multiplicarDosMatricesTest() {
-        List<int[]> l1 = Arrays.asList(new int[]{1, -1, 1}, new int[]{2, 2, 3}, new int[]{-2, -3, -1});
-        Matriz m1 = new Matriz(l1);
-        List<int[]> l2 = Arrays.asList(new int[]{1, 0, 4}, new int[]{0, 2, 5}, new int[]{1, 3, 0});
-        Matriz m2 = new Matriz(l2);
-        List<int[]> l3 = Arrays.asList(new int[]{2, 1, -1}, new int[]{5, 13, 18}, new int[]{-3, -9, -23});
-        Matriz m3 = new Matriz(l3);
 
         try {
+            List<int[]> l1 = Arrays.asList(new int[]{1, -1, 1}, new int[]{2, 2, 3}, new int[]{-2, -3, -1});
+            Matriz m1 = new Matriz(l1);
+            List<int[]> l2 = Arrays.asList(new int[]{1, 0, 4}, new int[]{0, 2, 5}, new int[]{1, 3, 0});
+            Matriz m2 = new Matriz(l2);
+            List<int[]> l3 = Arrays.asList(new int[]{2, 1, -1}, new int[]{5, 13, 18}, new int[]{-3, -9, -23});
+            Matriz m3 = new Matriz(l3);
+
             Matriz mTest = Matriz.multiplicarDosMatrices(m1, m2);
             assertEquals(m3, mTest);
-        }catch (Exception exception){
-            assertEquals("Las dimensiones no son válidas para la multiplicación", exception.getMessage());
+        } catch (Exception exception) {
+            assertTrue(exception.getMessage().equals("Las dimensiones no son válidas para la multiplicación") ||
+                    exception.getMessage().equals("Este tipo de constructor es solo para matrices cuadradas"));
         }
 
     }
