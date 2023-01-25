@@ -2,6 +2,7 @@ package test;
 
 import matrices.DimensionesIncompatibles;
 import matrices.Matriz;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.Arrays;
@@ -11,20 +12,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MatrizTest {
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getDimensionTest() {
         Matriz m = new Matriz(3, 2, true);
         Assertions.assertAll(() -> assertEquals(2, m.getDimension().width),
                 () -> assertEquals(3, m.getDimension().height));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void sumarDosMatricesTest() {
         Matriz m1 = new Matriz(3, 3, false);
         Matriz m2 = new Matriz(3, 3, false);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void multiplicarDosMatricesDimensionesIncompatiblesTest() {
         Matriz m1 = new Matriz(3, 2, false);
         Matriz m2 = new Matriz(3, 3, false);
@@ -32,7 +33,7 @@ class MatrizTest {
         assertEquals("Las dimensiones no son válidas para la multiplicación", exception.getMessage());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void multiplicarDosMatricesTest() {
 
         try {
@@ -52,7 +53,19 @@ class MatrizTest {
 
     }
 
-    @org.junit.jupiter.api.Test
-    void invertirMatriz() {
+    @Test
+    void transponerMatriz() {
+        try {
+            List<int[]> l1 = Arrays.asList(new int[]{1, 0, 4}, new int[]{0, 5, 0}, new int[]{6, 0, -9});
+            Matriz m1 = new Matriz(l1);
+            List<int[]> l2 = Arrays.asList(new int[]{1, 0, 6}, new int[]{0, 5, 0}, new int[]{4, 0, -9});
+            Matriz transpuestaM1 = new Matriz(l2);
+
+            Matriz mTestTranspuesta = Matriz.transponerMatriz(m1);
+            assertEquals(transpuestaM1, mTestTranspuesta);
+        } catch (Exception exception) {
+            assertTrue(exception.getMessage().equals("Las dimensiones no son válidas para la multiplicación") ||
+                    exception.getMessage().equals("Este tipo de constructor es solo para matrices cuadradas"));
+        }
     }
 }

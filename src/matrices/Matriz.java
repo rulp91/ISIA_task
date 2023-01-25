@@ -84,7 +84,7 @@ public class Matriz {
         return matrizResultante;
     }
 
-    public static Matriz invertirMatriz(Matriz origen) {
+    public static Matriz transponerMatriz(Matriz origen) {
 
         int filasA = origen.getDimension().height;
         int columnasA = origen.getDimension().width;
