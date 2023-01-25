@@ -54,15 +54,49 @@ class MatrizTest {
     }
 
     @Test
-    void transponerMatriz() {
+    void transponerMatrizTest() {
         try {
             List<int[]> l1 = Arrays.asList(new int[]{1, 0, 4}, new int[]{0, 5, 0}, new int[]{6, 0, -9});
             Matriz m1 = new Matriz(l1);
             List<int[]> l2 = Arrays.asList(new int[]{1, 0, 6}, new int[]{0, 5, 0}, new int[]{4, 0, -9});
             Matriz transpuestaM1 = new Matriz(l2);
 
-            Matriz mTestTranspuesta = Matriz.transponerMatriz(m1);
-            assertEquals(transpuestaM1, mTestTranspuesta);
+            Matriz mTranspuestaTest = Matriz.transponerMatriz(m1);
+            assertEquals(transpuestaM1, mTranspuestaTest);
+        } catch (Exception exception) {
+            assertTrue(exception.getMessage().equals("Las dimensiones no son válidas para la multiplicación") ||
+                    exception.getMessage().equals("Este tipo de constructor es solo para matrices cuadradas"));
+        }
+    }
+
+    @Test
+    void operacionCompuestaMatrizTranspuestaDeTranspuestaTest() {
+        try {
+            List<int[]> l1 = Arrays.asList(new int[]{1, 0, 4}, new int[]{0, 5, 0}, new int[]{6, 0, -9});
+            Matriz m1 = new Matriz(l1);
+            Matriz m1TranspuestaTranspuestaTest = Matriz.transponerMatriz(Matriz.transponerMatriz(m1));
+
+            assertEquals(m1, m1TranspuestaTranspuestaTest);
+        } catch (Exception exception) {
+            assertTrue(exception.getMessage().equals("Las dimensiones no son válidas para la multiplicación") ||
+                    exception.getMessage().equals("Este tipo de constructor es solo para matrices cuadradas"));
+        }
+    }
+
+    @Test
+    void operacionCompuestaProductoTranspuestasTest() {
+        try {
+            List<int[]> l1 = Arrays.asList(new int[]{1, -1, 1}, new int[]{2, 2, 3}, new int[]{-2, -3, -1});
+            Matriz m1 = new Matriz(l1);
+            List<int[]> l2 = Arrays.asList(new int[]{1, 0, 4}, new int[]{0, 2, 5}, new int[]{1, 3, 0});
+            Matriz m2 = new Matriz(l2);
+
+            Matriz mTranspuestaProducto = Matriz.transponerMatriz(Matriz.multiplicarDosMatrices(m1, m2));
+            Matriz m1Transpuesta = Matriz.transponerMatriz(m1);
+            Matriz m2Transpuesta = Matriz.transponerMatriz(m2);
+            Matriz mProductoTranspuestas = Matriz.multiplicarDosMatrices(m2Transpuesta, m1Transpuesta);
+
+            assertEquals(mTranspuestaProducto, mProductoTranspuestas);
         } catch (Exception exception) {
             assertTrue(exception.getMessage().equals("Las dimensiones no son válidas para la multiplicación") ||
                     exception.getMessage().equals("Este tipo de constructor es solo para matrices cuadradas"));
